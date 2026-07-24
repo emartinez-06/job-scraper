@@ -85,7 +85,9 @@
     "5916",
     "5731"
   ],
-  "goldman_sachs": [],
+  "goldman_sachs": [
+    "158147_GS_CAMPUS"
+  ],
   "hudson_river_trading": [
     "397389",
     "398052",

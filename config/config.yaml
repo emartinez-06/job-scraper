@@ -17,3 +17,21 @@ companies:
     # regardless of keyword, e.g. "Quantitative Strats", "Engineering
     # Division", "Software Engineer".
     keywords: []
+
+  - id: two_sigma
+    name: "Two Sigma"
+    locations:
+      - country: "United States"
+    keywords: []
+
+  - id: de_shaw
+    name: "D. E. Shaw"
+    locations:
+      - country: "United States"
+    keywords: []
+
+  - id: hudson_river_trading
+    name: "Hudson River Trading"
+    locations:
+      - country: "United States"
+    keywords: []

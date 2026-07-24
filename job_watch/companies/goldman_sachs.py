@@ -13,6 +13,7 @@ from __future__ import annotations
 import requests
 
 from job_watch.config import LocationFilter
+from job_watch.registry import register
 from job_watch.roles import Role
 
 _API_URL = "https://api-higher.gs.com/gateway/api/v1/graphql"
@@ -97,6 +98,7 @@ def _location_label(locations: list[dict]) -> str:
     return ", ".join(parts) or "Unknown location"
 
 
+@register("goldman_sachs")
 def fetch_roles(locations: list[LocationFilter]) -> list[Role]:
     """Fetches every open campus role, optionally restricted to given locations.
 

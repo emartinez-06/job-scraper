@@ -8,9 +8,10 @@ import argparse
 import sys
 from pathlib import Path
 
-from job_watch.companies import goldman_sachs
+import job_watch.companies  # noqa: F401 - import discovers and registers every company module
 from job_watch.config import CompanyConfig, load_config
 from job_watch.notify import create_issue
+from job_watch.registry import get_fetcher
 from job_watch.roles import Role, matches_keywords
 from job_watch.state import load_state, newly_seen, save_state
 
@@ -18,21 +19,13 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_CONFIG_PATH = REPO_ROOT / "config" / "config.yaml"
 DEFAULT_STATE_PATH = REPO_ROOT / "state" / "seen_roles.json"
 
-# Maps a company's config id to the function that fetches its open roles.
-# Add a new company by writing a `job_watch/companies/<name>.py` module with
-# a `fetch_roles(locations: list[LocationFilter]) -> list[Role]` function and
-# registering it here.
-_FETCHERS = {
-    "goldman_sachs": goldman_sachs.fetch_roles,
-}
-
 
 def run(config_path: Path, state_path: Path, dry_run: bool) -> None:
     config = load_config(config_path)
     state = load_state(state_path)
 
     for company in config.companies:
-        fetcher = _FETCHERS.get(company.id)
+        fetcher = get_fetcher(company.id)
         if fetcher is None:
             print(f"warning: no fetcher registered for company '{company.id}', skipping", file=sys.stderr)
             continue

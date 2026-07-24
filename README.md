@@ -21,6 +21,7 @@ This is both simpler to write and far more robust than driving a real browser, s
 | Two Sigma | Server-rendered HTML (Avature) | Plain GET returns the full job list already filled in; no bot protection encountered |
 | D. E. Shaw | Server-rendered HTML (`__NEXT_DATA__` JSON embedded in the page) | Next.js embeds the whole job list as JSON right in the HTML - no API call, no buildId to track |
 | Hudson River Trading | WordPress AJAX endpoint (`admin-ajax.php`) | A custom plugin's action, called with no auth/nonce required |
+| Capital One | Server-rendered HTML + a public geocoding endpoint | Location filtering is radius-based around a geocoded point, not an exact match - see the module's docstring |
 | Citadel Securities | Not implemented | Their careers site sits behind an active Cloudflare bot challenge (plain requests get a 403); deliberately not attempted - see "Limitations" |
 
 `job_watch/main.py` runs on a schedule via GitHub Actions and, each time:
@@ -36,7 +37,7 @@ This is both simpler to write and far more robust than driving a real browser, s
 
 1. Use this repo as a template (or clone/fork it) into your own GitHub account.
 2. Edit `config/config.yaml` to list the companies, locations, and keywords you care about.
-   Goldman Sachs, Two Sigma, D. E. Shaw, and Hudson River Trading are already wired up as working examples - see below to add more.
+   Goldman Sachs, Two Sigma, D. E. Shaw, Hudson River Trading, and Capital One are already wired up as working examples - see below to add more.
 3. Push to `main`.
    The workflow in `.github/workflows/watch.yml` starts running on its schedule automatically once it's on your default branch.
    - If you forked instead of using this as a template, GitHub disables Actions on forks by default - enable it from your repo's **Actions** tab first.
@@ -124,6 +125,21 @@ companies:
     locations:
       - country: "United States"
     keywords: []
+
+  - id: capital_one
+    name: "Capital One"
+    # Capital One geocodes each city and searches a 50-mile radius around
+    # it, so nearby cities can return surprisingly different results -
+    # list every specific city you care about rather than assuming one
+    # covers a nearby one.
+    locations:
+      - country: "United States"
+        state: "TX"
+        city: "Dallas"
+      - country: "United States"
+        state: "TX"
+        city: "Plano"
+    keywords: []
 ```
 
 Add as many entries under `companies:` as you like; each is independent, and a fetch failure for one company (a schema change, a timeout) is logged as a warning and doesn't stop the others from running.
@@ -158,6 +174,7 @@ job_watch/
     two_sigma.py              Two Sigma roles, scraped from server-rendered HTML
     de_shaw.py                D. E. Shaw roles, parsed from embedded Next.js JSON
     hudson_river_trading.py   HRT roles via their WordPress AJAX endpoint
+    capital_one.py            Capital One roles via server-rendered HTML + geocoding
 state/seen_roles.json        Watcher's memory of what's already been notified, per company
 tests/                       pytest suite, with captured-structure JSON fixtures
 .github/workflows/watch.yml  Scheduled run, every 30 minutes

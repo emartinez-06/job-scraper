@@ -1,0 +1,50 @@
+name: Watch Job Postings
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: watch-job-postings
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Check for new postings and notify
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m job_watch.main
+
+      - name: Commit updated state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet -- state/seen_roles.json; then
+            git add state/seen_roles.json
+            git commit -m "Update seen-roles state"
+            for i in 1 2 3; do
+              git push && break
+              echo "push rejected (concurrent run?), rebasing and retrying ($i)..."
+              git pull --rebase origin main
+            done
+          else
+            echo "No state change to commit"
+          fi

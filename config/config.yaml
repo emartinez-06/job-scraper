@@ -1,0 +1,19 @@
+# job-scraper configuration.
+# Nothing in this file is secret - it's safe to commit and edit directly.
+
+companies:
+  - id: goldman_sachs
+    name: "Goldman Sachs"
+    # Location filter, matching Goldman's own LOCATION filter hierarchy
+    # (country -> state -> city). Omit `state`/`city` to match every
+    # state/city within the level above. Empty `locations` list means
+    # worldwide. Add more entries to watch more places at once.
+    locations:
+      - country: "United States"
+        state: "TX"
+        city: "Dallas"
+    # A role notifies if any of these (case-insensitive) appear in its
+    # title or division. Empty list means every posting notifies,
+    # regardless of keyword, e.g. "Quantitative Strats", "Engineering
+    # Division", "Software Engineer".
+    keywords: []

@@ -1,0 +1,40 @@
+{
+  "data": {
+    "roleSearch": {
+      "totalCount": 3,
+      "items": [
+        {
+          "roleId": "158147_GS_CAMPUS",
+          "jobTitle": "2027 | Americas | Dallas | Transaction Banking (TxB), Coverage | Summer Analyst",
+          "division": "Platform Solutions",
+          "status": "POSTED",
+          "locations": [
+            {"primary": true, "state": "TX", "country": "United States", "city": "Dallas", "__typename": "RoleLocationGraphQlDTO"}
+          ],
+          "__typename": "ExternalRoleGraphQlDTO"
+        },
+        {
+          "roleId": "160001_GS_CAMPUS",
+          "jobTitle": "2027 | Americas | New York | Engineering | Summer Analyst",
+          "division": "Engineering Division",
+          "status": "POSTED",
+          "locations": [
+            {"primary": true, "state": "NY", "country": "United States", "city": "New York", "__typename": "RoleLocationGraphQlDTO"}
+          ],
+          "__typename": "ExternalRoleGraphQlDTO"
+        },
+        {
+          "roleId": "160002_GS_CAMPUS",
+          "jobTitle": "2027 | Americas | New York | FICC and Equities Quantitative Strats | Summer Analyst",
+          "division": "Engineering Division",
+          "status": "POSTED",
+          "locations": [
+            {"primary": true, "state": "NY", "country": "United States", "city": "New York", "__typename": "RoleLocationGraphQlDTO"}
+          ],
+          "__typename": "ExternalRoleGraphQlDTO"
+        }
+      ],
+      "__typename": "ExternalRoleSearchResultGraphQlDTO"
+    }
+  }
+}

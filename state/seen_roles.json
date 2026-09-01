@@ -205,6 +205,7 @@
     "96316252848",
     "96316252704",
     "96304026512",
+    "96294295712",
     "96262041904",
     "96262041488",
     "96164444480",
@@ -321,13 +322,13 @@
     "5731"
   ],
   "goldman_sachs": [
+    "171513_GS_CAMPUS",
     "170724_GS_CAMPUS",
     "170721_GS_CAMPUS",
     "170716_GS_CAMPUS",
     "170710_GS_CAMPUS",
     "164006_GS_CAMPUS",
     "164003_GS_CAMPUS",
-    "171513_GS_CAMPUS",
     "170709_GS_CAMPUS",
     "171546_GS_CAMPUS",
     "171509_GS_CAMPUS",
@@ -344,6 +345,7 @@
   "hudson_river_trading": [
     "398053",
     "397389",
+    "398200",
     "398199",
     "398197",
     "398198",
@@ -398,8 +400,7 @@
     "397417",
     "397408",
     "397322",
-    "397971",
-    "397454"
+    "397971"
   ],
   "two_sigma": [
     "https://careers.twosigma.com/careers/JobDetail/New-York-New-York-United-States-AI-Research-Scientist-Campus-Full-Time/13671",

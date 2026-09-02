@@ -35,19 +35,3 @@ companies:
     locations:
       - country: "United States"
     keywords: []
-
-  - id: capital_one
-    name: "Capital One"
-    # Capital One searches within a radius of a geocoded point rather than
-    # an exact city match, and Dallas vs. Plano turned out to return very
-    # different result sets despite being ~20 miles apart - so both are
-    # listed explicitly (deduped automatically) rather than relying on one
-    # covering the other.
-    locations:
-      - country: "United States"
-        state: "TX"
-        city: "Dallas"
-      - country: "United States"
-        state: "TX"
-        city: "Plano"
-    keywords: []
